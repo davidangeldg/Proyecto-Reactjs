@@ -1,10 +1,11 @@
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
+// import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import { makeStyles, Button, Link } from '@material-ui/core'
+import styles from "./navbar.module.scss"
+import CartWidget from '../CartWidget';
 
 const useStyles = makeStyles(theme => ({
     offset: theme.mixins.toolbar,
@@ -12,7 +13,8 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     tittle: {
-      flexGrow:1
+      flexGrow:1,
+      display: 'flex',
     }
 }))
 const NavbarComponent = () => {
@@ -20,25 +22,23 @@ const NavbarComponent = () => {
   return (
     <>
         <AppBar position="fixed" color="secondary">
-          <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
+          <Toolbar flex="flex">
+            {/* <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography variant="h6" className={classes.tittle}>
               A-MARK
             </Typography>
-            <div>
-              {/* <Link component="button" variant="text" color="inherit" className={classes.menuButton}>Categorías</Link>
-              <Link component="button" variant="text" color="inherit" className={classes.menuButton}>Historial</Link> */}
-              <Button variant="text" color="inherit">Categorias</Button>
-              <Button variant="text" color="inherit">Historial</Button>
-              <Button variant="text" color="inherit">Ofertas</Button>
-              <Button variant="text" color="inherit">Ayuda</Button>
-              <Button variant="text" color="inherit">Login</Button>
-            </div>
-            {/* <Button variant="text" color="inherit">
-              Login
-            </Button> */}
+            <nav>
+              <ul className={styles.links}>
+                  <li><a href="">Categorías</a></li>
+                  <li><a href="">Historial</a></li>
+                  <li><a href="">Ofertas</a></li>
+                  <li><a href="">Contacto</a></li>
+              </ul>
+            </nav>
+              <Button variant="text" color="inherit" startIcon={<AccountCircleRoundedIcon/>}>Login</Button>
+              <CartWidget/>
           </Toolbar>
         </AppBar>
         <div className={classes.offset}></div>
