@@ -17,23 +17,9 @@ const useStyles = makeStyles({
 
 const ItemListContainer = (props) => {
     const classes = useStyles();
-     //hook
-    const [contador, setContador] = useState(1);
 
-    const onAdd = (stock) => {
-        if(contador < stock){
-            setContador(contador + 1);
-        }else{
-            console.log("no tenemos stock")
-        }
-    };
-
-    const onSubstract = () => {
-        if(contador > 1){
-            setContador(contador - 1);
-        }else{
-            console.log("el valor es menor a lo que podemos vender")
-        }
+    const onAdd = () => {
+        alert('producto Agregado')
     };
     return (
         <>
@@ -46,7 +32,7 @@ const ItemListContainer = (props) => {
             >
             {props.greeting}
             </Typography>
-            <ItemCount  className={classes.contenedor}stock={12} contador={contador} onSubstract={onSubstract} onAdd={onAdd}/>
+            <ItemCount  className={classes.contenedor} stock={5} onAdd={onAdd}/>
         </>
     )
 }

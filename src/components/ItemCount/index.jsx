@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import RemoveCircleRoundedIcon from '@material-ui/icons/RemoveCircleRounded';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,24 +27,42 @@ const useStyles = makeStyles({
 })
 
 
-export const ItemCount =({stock, onAdd, contador, onSubstract}) =>{
+export const ItemCount =({stock, onAdd}) =>{
     const classes = useStyles();
     
+     //hook
+     const [contador, setContador] = useState(1);
+
+    const sumarCant = (stock) => {
+        if(contador < stock){
+            setContador(contador + 1);
+        }else{
+            console.log("no tenemos stock")
+        }
+    };
+
+    const restarCant = () => {
+        if(contador > 1){
+            setContador(contador - 1);
+        }else{
+            console.log("el valor es menor a lo que podemos vender")
+        }
+    };
     return(
         <div className={classes.contenedor}>
             <p>Producto X</p>
-            < div className={classes.centrado}>
+            <div className={classes.centrado}>
                 {(contador > 1) ?
-                <IconButton color="secondary" onClick={onSubstract}><RemoveCircleRoundedIcon /></IconButton>:
+                <IconButton color="secondary" onClick={restarCant}><RemoveCircleRoundedIcon /></IconButton>:
                 <IconButton disabled><RemoveCircleRoundedIcon /></IconButton>
                 } 
                 <b className={classes.cont}>{contador}</b>
                 {(contador < stock) ?
-                <IconButton color="secondary" onClick={ () => {onAdd(stock)}}><AddCircleRoundedIcon /></IconButton>:
+                <IconButton color="secondary" onClick={ () => {sumarCant(stock)}}><AddCircleRoundedIcon /></IconButton>:
                 <IconButton disabled><AddCircleRoundedIcon /></IconButton>
                 }
             </div>
-            <Button variant="outlined" color="secondary">Agregar al carrito</Button> 
+            <Button variant="outlined" color="secondary" onClick={onAdd}>Agregar al carrito</Button> 
         </div>
     )
 };
