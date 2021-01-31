@@ -1,7 +1,10 @@
 // contenedor para productos
 
+import React, { useState } from 'react';
+
 import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import { ItemCount } from "../components/ItemCount";
 import SimpleCard from "../components/SimpleCard";
 
 const useStyles = makeStyles({
@@ -12,9 +15,26 @@ const useStyles = makeStyles({
     },
 })
 
-const ItemListContainer = ({greeting}) => {
+const ItemListContainer = (props) => {
     const classes = useStyles();
+     //hook
+    const [contador, setContador] = useState(1);
 
+    const onAdd = (stock) => {
+        if(contador < stock){
+            setContador(contador + 1);
+        }else{
+            console.log("no tenemos stock")
+        }
+    };
+
+    const onSubstract = () => {
+        if(contador > 1){
+            setContador(contador - 1);
+        }else{
+            console.log("el valor es menor a lo que podemos vender")
+        }
+    };
     return (
         <>
             <Typography 
@@ -24,13 +44,9 @@ const ItemListContainer = ({greeting}) => {
             fontWeight={700}
             gutterBottom="true"
             >
-            {greeting}
+            {props.greeting}
             </Typography>
-            <div className={classes.contenedor}>
-                <SimpleCard/>
-                <SimpleCard/>
-                <SimpleCard/>
-            </div>
+            <ItemCount  className={classes.contenedor}stock={12} contador={contador} onSubstract={onSubstract} onAdd={onAdd}/>
         </>
     )
 }
