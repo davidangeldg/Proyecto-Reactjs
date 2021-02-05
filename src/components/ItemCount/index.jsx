@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     cont: {
         padding: '1rem',
     },
+    tittleP: {
+        marginBottom: 10,
+    }
 })
 
 
@@ -50,7 +53,7 @@ export const ItemCount =({stock, onAdd}) =>{
     };
     return(
         <div className={classes.contenedor}>
-            <p>Producto X</p>
+            <p className={classes.tittleP}>Cantidad</p>
             <div className={classes.centrado}>
                 {(contador > 1) ?
                 <IconButton color="secondary" onClick={restarCant}><RemoveCircleRoundedIcon /></IconButton>:

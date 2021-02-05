@@ -3,7 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 // import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-import { makeStyles, Button, Link } from '@material-ui/core'
+import { makeStyles, Button } from '@material-ui/core'
 import styles from "./navbar.module.scss"
 import CartWidget from '../CartWidget';
 

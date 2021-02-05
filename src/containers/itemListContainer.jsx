@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 const ItemListContainer = (props) => {
     const classes = useStyles();
 
-    const [carrito, setCarrito] = useState([]);
+    // const [carrito, setCarrito] = useState([]);
     const [products, setProducts] = useState([])
 
     useEffect(() => {
@@ -35,10 +35,10 @@ const ItemListContainer = (props) => {
     PromesaProduct.then((result) => setProducts(result));
     }, [])
 
-    const onAdd = () => {
-        setCarrito([...carrito, {name: 'producto X'}]);
-        alert('Producto Agregado');
-    };
+    // const onAdd = () => {
+    //     setCarrito([...carrito, {name: 'producto X'}]);
+    //     alert('Producto Agregado');
+    // };
 
     return (
         <>
@@ -51,7 +51,7 @@ const ItemListContainer = (props) => {
             >
             {props.greeting}
             </Typography>
-            <ItemCount  className={classes.contenedor} stock={5} onAdd={onAdd}/>
+            {/* <ItemCount  className={classes.contenedor} stock={5} onAdd={onAdd}/> */}
             <ItemList products={products}/>
         </>
     )

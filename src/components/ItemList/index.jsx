@@ -6,7 +6,8 @@ const useStyles = makeStyles({
         display:"flex",
         justifyContent: "center",
         alignItems:"center",
-        flexFlow: "row wrap"
+        flexFlow: "row wrap",
+        padding: "0 2rem"
     },
 })
 
