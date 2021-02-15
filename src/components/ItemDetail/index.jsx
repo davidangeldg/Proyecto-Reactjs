@@ -4,7 +4,7 @@ import styles from './detail.module.scss';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { red } from '@material-ui/core/colors';
 import { ItemCount } from '../ItemCount';
-
+import { Link, useParams } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -21,18 +21,19 @@ const ItemDetail = ({detallePro}) => {
 
     const [carrito, setCarrito] = useState([]);
 
-    const onAdd = () => {
-        setCarrito([...carrito, {name: 'producto X'}]);
-        alert('Producto Agregado');
+    const onAdd = (contador) => {
+        // setCarrito([...carrito, {name: 'producto X'}]);
+        // alert('Producto Agregado');
+        console.log(`Usted agrego ${contador} productos`)
     };
+
 
     return (
         <div className={styles.contenedorGrande}>
-            <h1>DETALLE</h1>
+            <h1>Detail</h1>
             <div className={styles.cont}>
                 <div className={styles.contImg}>
-                    <img src={detallePro.img} alt=""/> 
-                    <img src={detallePro.img2} alt=""/>
+                    <img src={detallePro.img} alt=""/>
                 </div>
                 <img src={detallePro.img} alt=""/>
                 <div className={styles.contDetail}>
@@ -51,11 +52,11 @@ const ItemDetail = ({detallePro}) => {
                     <div className={styles.productSize}>
                         <h4 class={styles.talla}>Talla:</h4>
                         <ul class={styles.ul_size}>
-                            <li><a href="#">XS</a></li>
-                            <li><a href="#">S</a></li>
-                            <li><a href="#">M</a></li>
-                            <li><a href="#">L</a></li>
-                            <li><a href="#">XL</a></li>
+                            <li><Link>XS</Link></li>
+                            <li><Link>S</Link></li>
+                            <li><Link>M</Link></li>
+                            <li><Link>L</Link></li>
+                            <li><Link>XL</Link></li>
                         </ul>
 					</div>
                     <h5>Stock Disponible: {detallePro.stock}</h5>

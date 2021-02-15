@@ -1,3 +1,8 @@
+.logo{
+    text-decoration: none;
+    color: #fff;
+}
+
 nav {
     display: flex;
     justify-content: center;
@@ -33,5 +38,6 @@ nav {
             transition-duration: 0.5s;
             font-weight: 700;
         }
+
     }
 }

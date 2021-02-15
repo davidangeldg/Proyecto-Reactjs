@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ItemDetail from '../components/ItemDetail';
-import detalleProducto from '../mocks/detalleProducto';
+import itemsPromise from "../mocks/productos";
 
 
 
 
 const ItemDetailContainer = () => {
 
-        const [detallePro, setdetallePro] = useState();
-        
-        const getItems = new Promise ((resolve, reject) => {
-                setTimeout(() => {
-                    resolve(detalleProducto)
-            }, 1000)
-        }); 
-        getItems.then((result) => setdetallePro(result));
-        console.log(detallePro)
+    const [detallePro, setDetallePro] = useState({});
+    
+
+    const{id} = useParams();
+    console.log(id);
+
+    useEffect(() => {
+        itemsPromise.then((res) => {
+            setDetallePro(res.find(element=> element.id.toString() === id))
+        });
+    }, []);
+
+    console.log(detallePro);
 
     
     return (

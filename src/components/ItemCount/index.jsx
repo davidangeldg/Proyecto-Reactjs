@@ -51,6 +51,10 @@ export const ItemCount =({stock, onAdd}) =>{
             console.log("el valor es menor a lo que podemos vender")
         }
     };
+
+    const handlerOnAdd = ()=>{
+        onAdd(contador)
+    }
     return(
         <div className={classes.contenedor}>
             <p className={classes.tittleP}>Cantidad</p>
@@ -65,7 +69,7 @@ export const ItemCount =({stock, onAdd}) =>{
                 <IconButton disabled><AddCircleRoundedIcon /></IconButton>
                 }
             </div>
-            <Button variant="outlined" color="secondary" onClick={onAdd}>Agregar al carrito</Button> 
+            <Button variant="outlined" color="secondary" onClick={handlerOnAdd}>Agregar al carrito</Button> 
         </div>
     )
 };

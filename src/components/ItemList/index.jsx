@@ -1,5 +1,9 @@
+import React, { useState, useEffect } from 'react';
+
 import Item from "../Item";
 import { makeStyles } from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
+import itemsPromise from "../../mocks/productos";
 
 const useStyles = makeStyles({
     contenedor: {
@@ -14,11 +18,27 @@ const useStyles = makeStyles({
 
 const ItemList = ({ products }) => {
     const classes = useStyles();
+
+    const [category, setCategory] = useState();
+    const{categoryId} = useParams();
+    console.log(categoryId);
+
+  
+    useEffect(() => {
+        itemsPromise.then((result) => {
+            setCategory(result.filter(element=> element.categoryId.toString() === categoryId))   
+        });
+    }, [categoryId]);
+
+    console.log(category)
+
     return (
-        <div className= {classes.contenedor} >
-            {products.map((product)=> {
-                return <Item key={product.id} product={product}/>       
-            })}
+        <div className= {classes.contenedor}>
+            { categoryId === undefined ? products.map((product)=> { 
+                return <Item key={product.id} product={product}/>
+                }) : category.map((product)=> {
+                return <Item key={product.categoryId} product={product}/> })
+            }
         </div>
     )
 };

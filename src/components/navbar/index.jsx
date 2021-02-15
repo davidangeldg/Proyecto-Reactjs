@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import itemsPromise from "../../mocks/productos";
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -6,6 +9,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import { makeStyles, Button } from '@material-ui/core'
 import styles from "./navbar.module.scss"
 import CartWidget from '../CartWidget';
+import { Link, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     offset: theme.mixins.toolbar,
@@ -19,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }))
 const NavbarComponent = () => {
   const classes = useStyles();
+
   return (
     <>
         <AppBar position="fixed" color="secondary">
@@ -27,14 +32,14 @@ const NavbarComponent = () => {
               <MenuIcon />
             </IconButton> */}
             <Typography variant="h6" className={classes.tittle}>
-              A-MARK
+              <Link to={'/'} className={styles.logo}>A-MARK</Link>
             </Typography>
             <nav>
               <ul className={styles.links}>
-                  <li><a href="">Categorías</a></li>
-                  <li><a href="">Historial</a></li>
-                  <li><a href="">Ofertas</a></li>
-                  <li><a href="">Contacto</a></li>
+                  <li><Link to={'/'}>Home</Link></li>
+                  <li><Link to={`/category/3`}>Camisetas</Link></li>
+                  <li><Link to={`/category/5`}>Buzos</Link></li>
+                  <li><Link>Zapatillas</Link></li>
               </ul>
             </nav>
               <Button variant="text" color="inherit" startIcon={<AccountCircleRoundedIcon/>}>Login</Button>
