@@ -16,29 +16,19 @@ const useStyles = makeStyles({
 })
 
 
-const ItemList = ({ products }) => {
+const ItemList = ({ products, category, categoryId }) => {
     const classes = useStyles();
-
-    const [category, setCategory] = useState();
-    const{categoryId} = useParams();
-    console.log(categoryId);
-
-  
-    useEffect(() => {
-        itemsPromise.then((result) => {
-            setCategory(result.filter(element=> element.categoryId.toString() === categoryId))   
-        });
-    }, [categoryId]);
-
-    console.log(category)
 
     return (
         <div className= {classes.contenedor}>
-            { categoryId === undefined ? products.map((product)=> { 
+            {/* { categoryId === undefined ? products.map((product)=> { 
                 return <Item key={product.id} product={product}/>
                 }) : category.map((product)=> {
                 return <Item key={product.categoryId} product={product}/> })
-            }
+            } */}
+            {products.map((product)=> { 
+                return <Item key={product.id} product={product}/>
+            })}
         </div>
     )
 };

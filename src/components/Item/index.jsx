@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from "./Item.module.scss";
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { ItemCount } from '../ItemCount';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({

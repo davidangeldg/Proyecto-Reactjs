@@ -25,7 +25,7 @@ const ItemDetailContainer = () => {
     
     return (
         <section>
-            <ItemDetail detallePro={detallePro}/>
+            <ItemDetail detallePro={detallePro}/> 
         </section>
     )
 }

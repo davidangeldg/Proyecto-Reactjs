@@ -4,7 +4,7 @@ import styles from './detail.module.scss';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { red } from '@material-ui/core/colors';
 import { ItemCount } from '../ItemCount';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles({

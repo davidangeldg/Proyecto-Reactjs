@@ -35,7 +35,7 @@ const itemsPromise = new Promise((rej, res) => {
   export const itemPromise = new Promise((rej, res) => {
     setTimeout(() => {
       rej(detalleProducto());
-    }, 2000);
+    }, 2000); 
   });
 
 

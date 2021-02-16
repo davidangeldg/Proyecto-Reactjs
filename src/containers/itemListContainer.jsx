@@ -2,13 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import { ItemCount } from "../components/ItemCount";
 import itemsPromise from "../mocks/productos";
 import ItemList from '../components/ItemList';
 import { useParams } from 'react-router-dom';
-import createTypography from '@material-ui/core/styles/createTypography';
 
 
 const useStyles = makeStyles({
@@ -32,10 +29,20 @@ const ItemListContainer = () => {
     // const [carrito, setCarrito] = useState([]);
     const [products, setProducts] = useState([])
 
+    // const [category, setCategory] = useState();
+
+    const{categoryId} = useParams();
+    console.log(categoryId);
 
     useEffect(() => {
-        itemsPromise.then((res) => setProducts(res));
-    }, []);
+        itemsPromise.then((res) => {
+            if (categoryId === undefined) {
+                setProducts(res);
+            }else{
+                setProducts(res.filter(element=> element.categoryId.toString() === categoryId))
+            };
+        });
+    }, [categoryId]);
 
     return (
         <>            
