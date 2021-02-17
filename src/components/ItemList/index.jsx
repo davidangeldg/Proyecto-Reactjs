@@ -16,16 +16,11 @@ const useStyles = makeStyles({
 })
 
 
-const ItemList = ({ products, category, categoryId }) => {
+const ItemList = ({ products }) => {
     const classes = useStyles();
 
     return (
         <div className= {classes.contenedor}>
-            {/* { categoryId === undefined ? products.map((product)=> { 
-                return <Item key={product.id} product={product}/>
-                }) : category.map((product)=> {
-                return <Item key={product.categoryId} product={product}/> })
-            } */}
             {products.map((product)=> { 
                 return <Item key={product.id} product={product}/>
             })}

@@ -29,10 +29,8 @@ const ItemListContainer = () => {
     // const [carrito, setCarrito] = useState([]);
     const [products, setProducts] = useState([])
 
-    // const [category, setCategory] = useState();
-
     const{categoryId} = useParams();
-    console.log(categoryId);
+    // console.log(categoryId);
 
     useEffect(() => {
         itemsPromise.then((res) => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './detail.module.scss';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
+import Button from '@material-ui/core/Button';
 import { red } from '@material-ui/core/colors';
 import { ItemCount } from '../ItemCount';
 import { Link } from 'react-router-dom';
@@ -16,16 +17,20 @@ const useStyles = makeStyles({
 })
 
 const ItemDetail = ({detallePro}) => {
-    console.log(detallePro)
+    // console.log(detallePro)
     const classes = useStyles();
 
-    const [carrito, setCarrito] = useState([]);
+    // const [carrito, setCarrito] = useState([]);
+
+    const [irAlCarrito, setIrAlCarrito] = useState(false);
 
     const onAdd = (contador) => {
-        // setCarrito([...carrito, {name: 'producto X'}]);
-        // alert('Producto Agregado');
-        console.log(`Usted agrego ${contador} productos`)
+        // setCarrito([...carrito, detallePro]);
+        console.log(`Usted agrego ${contador} productos`);
+        setIrAlCarrito(true);
     };
+
+// console.log(carrito);
 
 
     return (
@@ -60,7 +65,8 @@ const ItemDetail = ({detallePro}) => {
                         </ul>
 					</div>
                     <h5>Stock Disponible: {detallePro.stock}</h5>
-                    <ItemCount  className={classes.contenedor} stock={detallePro.stock} onAdd={onAdd}/>
+                    {irAlCarrito ? <Link to= {`/Cart`}><Button variant="contained" color="secondary">Terminar mi compra</Button></Link> : <ItemCount  className={classes.contenedor} stock={detallePro.stock} onAdd={onAdd}/>}
+                    
                 </div>
             </div>
         </div>

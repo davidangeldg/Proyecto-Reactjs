@@ -12,7 +12,7 @@ const ItemDetailContainer = () => {
     
 
     const{id} = useParams();
-    console.log(id);
+    // console.log(id);
 
     useEffect(() => {
         itemsPromise.then((res) => {
@@ -20,7 +20,7 @@ const ItemDetailContainer = () => {
         });
     }, []);
 
-    console.log(detallePro);
+    // console.log(detallePro);
 
     
     return (
