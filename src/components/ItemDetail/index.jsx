@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './detail.module.scss';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { red } from '@material-ui/core/colors';
 import { ItemCount } from '../ItemCount';
 import { Link } from 'react-router-dom';
+import { cartContext } from '../../Context/cartContext';
 
 
 const useStyles = makeStyles({
@@ -24,13 +25,14 @@ const ItemDetail = ({detallePro}) => {
 
     const [irAlCarrito, setIrAlCarrito] = useState(false);
 
+    const { productCart, addCart } = useContext(cartContext);
+
     const onAdd = (contador) => {
         // setCarrito([...carrito, detallePro]);
         console.log(`Usted agrego ${contador} productos`);
         setIrAlCarrito(true);
+        addCart({ item: detallePro, quantity: contador});
     };
-
-// console.log(carrito);
 
 
     return (

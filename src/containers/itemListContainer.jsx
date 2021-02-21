@@ -1,6 +1,6 @@
 // contenedor para productos
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import itemsPromise from "../mocks/productos";
@@ -23,13 +23,15 @@ const useStyles = makeStyles({
     }
 })
 
+
+
 const ItemListContainer = () => {
     const classes = useStyles();
 
     // const [carrito, setCarrito] = useState([]);
     const [products, setProducts] = useState([])
 
-    const{categoryId} = useParams();
+    const{categoryId} = useParams(); 
     // console.log(categoryId);
 
     useEffect(() => {
