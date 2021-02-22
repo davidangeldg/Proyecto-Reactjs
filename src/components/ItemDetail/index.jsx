@@ -25,13 +25,13 @@ const ItemDetail = ({detallePro}) => {
 
     const [irAlCarrito, setIrAlCarrito] = useState(false);
 
-    const { productCart, addCart } = useContext(cartContext);
+    const { addCart } = useContext(cartContext);
 
     const onAdd = (contador) => {
         // setCarrito([...carrito, detallePro]);
         console.log(`Usted agrego ${contador} productos`);
         setIrAlCarrito(true);
-        addCart({ item: detallePro, quantity: contador});
+        addCart({item: detallePro, quantity: contador});
     };
 
 
