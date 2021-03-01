@@ -1,15 +1,18 @@
 // contenedor para productos
-
 import React, { useState, useEffect, useContext } from 'react';
-
+// MUI
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+// locales
 import itemsPromise from "../mocks/productos";
 import ItemList from '../components/ItemList';
 import { useParams } from 'react-router-dom';
+import { getFirestore } from "../firebase";
 
 
 const useStyles = makeStyles({
     contenedor: {
+        padding: "40px",
         display:"flex",
         justifyContent: "center",
         alignItems:"center",
@@ -23,16 +26,10 @@ const useStyles = makeStyles({
     }
 })
 
-
-
 const ItemListContainer = () => {
     const classes = useStyles();
-
-    // const [carrito, setCarrito] = useState([]);
     const [products, setProducts] = useState([])
-
     const{categoryId} = useParams(); 
-    // console.log(categoryId);
 
     useEffect(() => {
         itemsPromise.then((res) => {
@@ -46,8 +43,8 @@ const ItemListContainer = () => {
 
     return (
         <>            
-            <h1 className={classes.titulo}>PRODUCTOS</h1>
-            {products.length < 1 ? <h1 className={classes.carga}>Cargando...</h1> : <ItemList products={products}/>}
+            {/* <h1 className={classes.titulo}>PRODUCTOS</h1> */}
+            {products.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : <ItemList products={products}/>}
         </>
     )
 }

@@ -34,7 +34,7 @@ const NavbarComponent = () => {
               <Link to={'/'} className={styles.logo}>A-MARK</Link>
             </Typography>
             <nav>
-              <ul className={styles.links}>
+              <ul className={styles.links}> 
                   <li><Link to={'/'}>Home</Link></li>
                   <li><Link to={`/category/3`}>Camisetas</Link></li>
                   <li><Link to={`/category/5`}>Buzos</Link></li>
@@ -43,7 +43,7 @@ const NavbarComponent = () => {
               </ul>
             </nav>
               <Button variant="text" color="inherit" startIcon={<AccountCircleRoundedIcon/>}>Login</Button>
-              <CartWidget/>
+              <Link to={'/cart'}><CartWidget/></Link>
           </Toolbar>
         </AppBar>
         <div className={classes.offset}></div>
