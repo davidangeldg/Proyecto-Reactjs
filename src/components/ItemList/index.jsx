@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Item from "../Item";
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
-import itemsPromise from "../../mocks/productos";
+// import itemsPromise from "../../mocks/productos";
 
 const useStyles = makeStyles({
     contenedor: {
@@ -16,12 +15,13 @@ const useStyles = makeStyles({
 })
 
 
-const ItemList = ({ products }) => {
+const ItemList = ({ productos }) => {
     const classes = useStyles();
+    // console.log(productos)
 
     return (
         <div className= {classes.contenedor}>
-            {products.map((product)=> { 
+            {productos.map((product)=> { 
                 return <Item key={product.id} product={product}/>
             })}
         </div>

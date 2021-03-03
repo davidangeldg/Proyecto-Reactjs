@@ -1,5 +1,5 @@
 // contenedor para productos
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import itemsPromise from "../mocks/productos";
 import ItemList from '../components/ItemList';
 import { useParams } from 'react-router-dom';
-import { getFirestore } from "../firebase";
+import { cartContext } from '../Context/cartContext';
 
 
 const useStyles = makeStyles({
@@ -28,23 +28,38 @@ const useStyles = makeStyles({
 
 const ItemListContainer = () => {
     const classes = useStyles();
-    const [products, setProducts] = useState([])
-    const{categoryId} = useParams(); 
+    // const [products, setProducts] = useState([])
+    // console.log(products)
+
+    const {productos, setProductos} = useContext(cartContext);
+    // console.log(productos)
+
+    const{categoria} = useParams(); 
+    // productos Locales
+    // useEffect(() => {
+    //     itemsPromise.then((res) => {
+    //         if (categoryId === undefined) {
+    //             setProducts(res);
+    //         }else{
+    //             setProducts(res.filter(element=> element.categoryId.toString() === categoryId))
+    //         };
+    //     });
+    // }, [categoryId]);
 
     useEffect(() => {
         itemsPromise.then((res) => {
-            if (categoryId === undefined) {
-                setProducts(res);
+            if (categoria === undefined) {
+                setProductos(res);
             }else{
-                setProducts(res.filter(element=> element.categoryId.toString() === categoryId))
+                setProductos(res.filter(element=> element.categoria === categoria))
             };
         });
-    }, [categoryId]);
-
+    }, [categoria]);
+ 
     return (
         <>            
             {/* <h1 className={classes.titulo}>PRODUCTOS</h1> */}
-            {products.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : <ItemList products={products}/>}
+            {productos.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : <ItemList productos={productos}/>}
         </>
     )
 }
