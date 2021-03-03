@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemDetail from '../components/ItemDetail';
-import itemsPromise from "../mocks/productos";
+import { getFirestore } from '../firebase';
+// import itemsPromise from "../mocks/productos";
 
 
 
 
 const ItemDetailContainer = () => {
 
-    const [detallePro, setDetallePro] = useState({});
+    const [detallePro, setDetallePro] = useState([]);
     
 
     const{id} = useParams();
-    // console.log(id);
+    console.log(id);
 
     useEffect(() => {
-        itemsPromise.then((res) => {
-            setDetallePro(res.find(element=> element.id.toString() === id))
-        });
+        // conexion a la bd
+        const baseDeDatos = getFirestore();
+        // Guardamos la referencia de la coleccion que queremos tomar
+        const itemCollection = baseDeDatos.collection('items');
+        // Tomando los datos
+        itemCollection.doc(id).get().then( value => {
+            setDetallePro({...value.data(), id: value.id})
+        })
     }, []);
-
-    // console.log(detallePro);
-
     
     return (
         <section>

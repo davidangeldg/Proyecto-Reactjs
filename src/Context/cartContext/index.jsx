@@ -11,7 +11,7 @@ export const CartProvider = ({children}) => {
     
     // desafio firebase
     const [productos, setProductos] = useState([]);
-    console.log(productos)
+    // console.log(productos)
     
     useEffect(() => {
         // conexion a la bd
@@ -19,16 +19,9 @@ export const CartProvider = ({children}) => {
         // Guardamos la referencia de la coleccion que queremos tomar
         const itemCollection = baseDeDatos.collection('items');
         // Tomando los datos
-        itemCollection.get().then((value) => {
-            let aux = value.docs.map( async (product) => {
-                // llamar otra vez a la bd tomando la categoriaID del element
-                const CategoriasCollection = baseDeDatos.collection('categorias');
-                let auxCategorias = await CategoriasCollection.doc(product.data().categoryId).get()
-                console.log(auxCategorias.data().category)
-                return { ...product.data(), categoria: auxCategorias.data().category };
-            })
-            console.log(aux)
-            setProductos(aux);
+        itemCollection.get().then(value =>{
+            const documents = value.docs.map(doc => ({...doc.data(), id: doc.id}));
+            setProductos(documents);
         })
     }, [])
     

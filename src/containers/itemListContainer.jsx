@@ -4,10 +4,11 @@ import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // locales
-import itemsPromise from "../mocks/productos";
+// import itemsPromise from "../mocks/productos";
 import ItemList from '../components/ItemList';
 import { useParams } from 'react-router-dom';
 import { cartContext } from '../Context/cartContext';
+import { getFirestore } from '../firebase';
 
 
 const useStyles = makeStyles({
@@ -28,14 +29,11 @@ const useStyles = makeStyles({
 
 const ItemListContainer = () => {
     const classes = useStyles();
-    // const [products, setProducts] = useState([])
-    // console.log(products)
-
     const {productos, setProductos} = useContext(cartContext);
-    // console.log(productos)
-
-    const{categoria} = useParams(); 
+    
+    const{ categoryId } = useParams(); 
     // productos Locales
+    // const [products, setProducts] = useState([])
     // useEffect(() => {
     //     itemsPromise.then((res) => {
     //         if (categoryId === undefined) {
@@ -47,18 +45,25 @@ const ItemListContainer = () => {
     // }, [categoryId]);
 
     useEffect(() => {
-        itemsPromise.then((res) => {
-            if (categoria === undefined) {
-                setProductos(res);
-            }else{
-                setProductos(res.filter(element=> element.categoria === categoria))
-            };
+
+        // conexion a la bd
+        const baseDeDatos = getFirestore();
+        // Guardamos la referencia de la coleccion que queremos tomar
+        const itemCollection = baseDeDatos.collection('items');
+        itemCollection.get().then(value =>{
+            const productFilter = value.docs.map(doc => ({...doc.data(), id: doc.id}));
+                if (categoryId === undefined) {
+                    setProductos(productFilter);
+                }else{
+                    setProductos(productFilter.filter(element=> element.categoryId === categoryId))
+                };
+            console.log(productFilter);
+            
         });
-    }, [categoria]);
+    }, [categoryId]); 
  
     return (
         <>            
-            {/* <h1 className={classes.titulo}>PRODUCTOS</h1> */}
             {productos.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : <ItemList productos={productos}/>}
         </>
     )

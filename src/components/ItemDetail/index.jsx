@@ -18,13 +18,9 @@ const useStyles = makeStyles({
 })
 
 const ItemDetail = ({detallePro}) => {
-    // console.log(detallePro)
+   
     const classes = useStyles();
-
-    // const [carrito, setCarrito] = useState([]);
-
     const [irAlCarrito, setIrAlCarrito] = useState(false);
-
     const { addCart } = useContext(cartContext);
 
     const onAdd = (contador) => {
@@ -34,18 +30,17 @@ const ItemDetail = ({detallePro}) => {
         addCart({item: detallePro, quantity: contador});
     };
 
-
     return (
         <div className={styles.contenedorGrande}>
             <h1>Detail</h1>
             <div className={styles.cont}>
                 <div className={styles.contImg}>
-                    <img src={detallePro.img} alt=""/>
+                    <img src={detallePro.image} alt=""/>
                 </div>
-                <img src={detallePro.img} alt=""/>
+                <img src={detallePro.image} alt=""/>
                 <div className={styles.contDetail}>
                     <h6>Nuevo | 1.000 vendidos</h6>
-                    <h3>{detallePro.name}</h3>
+                    <h3>{detallePro.title}</h3>
                     <div className={styles.productRating}>
                         <StarRoundedIcon style={{ color: red[800] }} fontSize="small"/>
                         <StarRoundedIcon style={{ color: red[800] }} fontSize="small"/>
