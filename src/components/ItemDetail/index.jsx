@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 })
 
 const ItemDetail = ({detallePro}) => {
-   
+   console.log(detallePro)
     const classes = useStyles();
     const [irAlCarrito, setIrAlCarrito] = useState(false);
     const { addCart } = useContext(cartContext);
@@ -32,7 +32,7 @@ const ItemDetail = ({detallePro}) => {
 
     return (
         <div className={styles.contenedorGrande}>
-            <h1>Detail</h1>
+            {/* <h1>Detail</h1> */}
             <div className={styles.cont}>
                 <div className={styles.contImg}>
                     <img src={detallePro.image} alt=""/>
@@ -62,7 +62,8 @@ const ItemDetail = ({detallePro}) => {
                         </ul>
 					</div>
                     <h5>Stock Disponible: {detallePro.stock}</h5>
-                    {irAlCarrito ? <Link to= {`/Cart`}><Button variant="contained" color="secondary">Terminar mi compra</Button></Link> : <ItemCount  className={classes.contenedor} stock={detallePro.stock} onAdd={onAdd}/>}
+                    {irAlCarrito ? <Link to= {`/Cart`}><Button variant="contained" color="secondary">Ver Carrito</Button></Link> : 
+                    <ItemCount  className={classes.contenedor} stock={detallePro.stock} onAdd={onAdd}/>}
                     
                 </div>
             </div>

@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'
+import { Link } from "react-router-dom";
 
 /*===================================================================================================*/
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +60,11 @@ const CartComponent = () => {
                         <div className={classes.separador}/>
                         <Grid item xs={12} className={classes.texto}>
                             <Typography variant="h5">Total <span className={classes.allPrice}> $ {totalPrice()} </span></Typography>
+                        </Grid>
+                        <Grid item xs={12} className={classes.texto}>
+                            <Link to={`/checkout`}>
+                                <Button variant="contained" color="secondary">Terminar compra</Button>
+                            </Link>
                         </Grid>
                     </Grid>  
                 </Paper>

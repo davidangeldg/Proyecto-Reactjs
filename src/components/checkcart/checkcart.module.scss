@@ -1,0 +1,12 @@
+.cont{
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    border-bottom: 1px solid rgb(167, 167, 167);
+    padding-bottom: 5px;
+    img{
+        width: 15%;
+        border-radius: 4px;
+        margin: .3rem;
+    }
+}

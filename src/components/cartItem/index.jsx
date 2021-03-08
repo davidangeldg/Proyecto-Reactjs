@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const CartItem = ({ cartProduct }) => {
-    
+    console.log(cartProduct.item.title)
     const classes = useStyles();
 
     const { sumarCantCart, restCantCart, removeCart } = useContext(cartContext);

@@ -1,5 +1,5 @@
 // contenedor para productos
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -29,9 +29,11 @@ const useStyles = makeStyles({
 
 const ItemListContainer = () => {
     const classes = useStyles();
-    const {productos, setProductos} = useContext(cartContext);
+    const {productos, setProductos } = useContext(cartContext);
+    console.log(productos)
     
-    const{ categoryId } = useParams(); 
+    const{ categoria } = useParams(); 
+    // console.log(categoria)
     // productos Locales
     // const [products, setProducts] = useState([])
     // useEffect(() => {
@@ -50,21 +52,32 @@ const ItemListContainer = () => {
         const baseDeDatos = getFirestore();
         // Guardamos la referencia de la coleccion que queremos tomar
         const itemCollection = baseDeDatos.collection('items');
-        itemCollection.get().then(value =>{
-            const productFilter = value.docs.map(doc => ({...doc.data(), id: doc.id}));
-                if (categoryId === undefined) {
-                    setProductos(productFilter);
-                }else{
-                    setProductos(productFilter.filter(element=> element.categoryId === categoryId))
-                };
-            console.log(productFilter);
-            
-        });
-    }, [categoryId]); 
+        itemCollection.get().then(async (value) => {
+            //  Usando Promise.all() para esperar que todos los metodos asincronicos se terminen de ejecutar.
+            let aux = await Promise.all(value.docs.map( async (product) => {
+
+                // Llamar otra vez a la bd tomando la categoriaID del element
+                const CategoriasCollection = baseDeDatos.collection('categorias');
+                //cambiar datos por los que yo voy a subir
+                // Tomamos el documento la id de la categoria
+                let auxCategorias = await CategoriasCollection.doc(product.data().categoria).get()
+                // console.log(auxCategorias.data())
+                return { ...product.data(), categoria:auxCategorias.data().category }
+            }))
+            if (categoria === undefined) {
+                setProductos(aux);
+            }else{
+                setProductos(aux.filter(element=> element.categoria === categoria))
+            };
+        })
+    }, [categoria]); 
+
+    console.log(productos)
  
     return (
         <>            
-            {productos.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : <ItemList productos={productos}/>}
+            {productos.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : 
+            <ItemList productos={productos}/>}
         </>
     )
 }

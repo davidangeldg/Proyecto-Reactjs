@@ -1,5 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { getFirestore } from "../../firebase";
+import firebase from 'firebase/app';
+import '@firebase/firestore';
 
 export const cartContext = createContext([]);
 
@@ -7,29 +9,33 @@ export const CartProvider = ({children}) => {
 
     const cartLocalStorage = JSON.parse(localStorage.getItem('cart'))
     const [ productCart, setProductCart ] = useState(cartLocalStorage ? cartLocalStorage : []);
-    // console.log(productCart)
-    
     // desafio firebase
     const [productos, setProductos] = useState([]);
-    // console.log(productos)
-    
-    useEffect(() => {
-        // conexion a la bd
-        const baseDeDatos = getFirestore();
-        // Guardamos la referencia de la coleccion que queremos tomar
-        const itemCollection = baseDeDatos.collection('items');
-        // Tomando los datos
-        itemCollection.get().then(value =>{
-            const documents = value.docs.map(doc => ({...doc.data(), id: doc.id}));
-            setProductos(documents);
-        })
-    }, [])
-    
+    // console.log(productos)   
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(productCart))
     }, [productCart])
+    // tomar datos formulario
+    const [name, setName] = React.useState('');
+    const [cellphone, setCellphone] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [direccion, setDireccion] = React.useState('');
+    const [idCompra, setIdCompra] = useState('');
 
-    
+
+    const finalizarCompra = () => {
+        let newOrder = { 
+            buyer: {name: name, telefono: cellphone, email: email, direccion: direccion }, 
+            items: [...productCart], 
+            date: firebase.firestore.Timestamp.fromDate(new Date()),
+            total: totalPrice() };
+        const baseDeDatos = getFirestore();
+        const OrdenesCollection = baseDeDatos.collection('ordenes');
+        OrdenesCollection.add(newOrder).then((value) => {
+            setIdCompra(value.id);
+            console.log(value.id)
+        })
+    }
     const totalPrice = () => productCart.reduce((acc, p) => acc + (p.quantity * p.item.price), 0);
     const totalCant = () => productCart.reduce((acc, {quantity}) => acc + quantity, 0);
     const sumarCantCart = (item) => {
@@ -73,15 +79,10 @@ export const CartProvider = ({children}) => {
     }
 
     return <cartContext.Provider value={{
-        productCart, 
-        addCart, 
-        sumarCantCart, 
-        restCantCart,
-        removeCart,
-        totalPrice,
-        totalCant,
-        productos,
-        setProductos,
+        productCart, addCart, sumarCantCart, restCantCart, removeCart, totalPrice, totalCant, 
+        productos, setProductos, 
+        name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion,
+        finalizarCompra,
         }}>
         {children}
     </cartContext.Provider>
