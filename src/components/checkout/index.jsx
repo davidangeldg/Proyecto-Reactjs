@@ -8,6 +8,7 @@ import { cartContext } from '../../Context/cartContext';
 import CheckCart from '../checkcart';
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import PopUp from '../PopUp';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +31,7 @@ const Checkout = () => {
     const classes = useStyles();
     const {
         productCart, totalPrice, totalCant, finalizarCompra,
-        name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion,
+        name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion, validarEmail, setValidarEmail
     } = useContext(cartContext);
 
     const handleChangeName = (event) => {
@@ -41,6 +42,9 @@ const Checkout = () => {
     };
     const handleChangeEmail = (event) => {
         setEmail(event.target.value);
+    };
+    const handleChangeValidar = (event) => {
+        setValidarEmail(event.target.value);
     };
     const handleChangeDir = (event) => {
         setDireccion(event.target.value);
@@ -58,14 +62,17 @@ const Checkout = () => {
                         <TextField id="telefono" label="telefono" 
                         placeholder="3115553344" value={cellphone} className={classes.textField} 
                         color="secondary" onChange={handleChangeCel} />
-                        <TextField id="e-mail" label="E-mail" 
-                        placeholder="usuario@correo.com" value={email} className={classes.textField} 
-                        color="secondary" onChange={handleChangeEmail} />
-                    </div>
-                    <div className={styles.dir}>
                         <TextField id="standard-required" label="Dirección" 
                         placeholder="cll 1 # 100-50" value={direccion} color="secondary"
-                        onChange={handleChangeDir} className={classes.large} />
+                        onChange={handleChangeDir} className={classes.textField} />
+                    </div>
+                    <div className={styles.dir}>
+                        <TextField id="e-mail" label="E-mail" 
+                        placeholder="usuario@correo.com" value={email} className={classes.large} 
+                        color="secondary" onChange={handleChangeEmail} autoComplete="off" />
+                        <TextField id="validateEmail" label="Confirmar Email" 
+                        placeholder="usuario@correo.com" value={validarEmail} className={classes.large} 
+                        color="secondary" onChange={handleChangeValidar} autoComplete="off" />
                     </div>
                 </form>
                 <div className={styles.carrito}>
@@ -84,6 +91,7 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>
+            <PopUp/>
         </div>
     )
 }

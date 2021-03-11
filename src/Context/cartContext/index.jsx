@@ -2,6 +2,8 @@ import React, { createContext, useEffect, useState } from "react";
 import { getFirestore } from "../../firebase";
 import firebase from 'firebase/app';
 import '@firebase/firestore';
+//MUI
+
 
 export const cartContext = createContext([]);
 
@@ -16,12 +18,14 @@ export const CartProvider = ({children}) => {
         localStorage.setItem('cart', JSON.stringify(productCart))
     }, [productCart])
     // tomar datos formulario
-    const [name, setName] = React.useState('');
-    const [cellphone, setCellphone] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [direccion, setDireccion] = React.useState('');
+    const [name, setName] = useState('');
+    const [cellphone, setCellphone] = useState('');
+    const [email, setEmail] = useState('');
+    const [validarEmail, setValidarEmail] = useState('');
+    const [direccion, setDireccion] = useState('');
     const [idCompra, setIdCompra] = useState('');
-
+    const [open, setOpen] = useState(false);
+    // console.log(idCompra)
 
     const finalizarCompra = () => {
         let newOrder = { 
@@ -31,10 +35,15 @@ export const CartProvider = ({children}) => {
             total: totalPrice() };
         const baseDeDatos = getFirestore();
         const OrdenesCollection = baseDeDatos.collection('ordenes');
-        OrdenesCollection.add(newOrder).then((value) => {
-            setIdCompra(value.id);
-            console.log(value.id)
-        })
+        if (name & cellphone || direccion !== '' & email === validarEmail) {
+            OrdenesCollection.add(newOrder).then((value) => {
+                setIdCompra(value.id);
+                setOpen(true)
+                console.log(value.id)
+            })
+        }else if(validarEmail !== email || validarEmail === ''){
+            alert(`las direcciones de email no son iguales`);
+        }
     }
     const totalPrice = () => productCart.reduce((acc, p) => acc + (p.quantity * p.item.price), 0);
     const totalCant = () => productCart.reduce((acc, {quantity}) => acc + quantity, 0);
@@ -81,8 +90,8 @@ export const CartProvider = ({children}) => {
     return <cartContext.Provider value={{
         productCart, addCart, sumarCantCart, restCantCart, removeCart, totalPrice, totalCant, 
         productos, setProductos, 
-        name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion,
-        finalizarCompra,
+        name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion, validarEmail, setValidarEmail,
+        finalizarCompra, open, setOpen, idCompra
         }}>
         {children}
     </cartContext.Provider>
