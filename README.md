@@ -3,7 +3,7 @@ Presentado por David Angel
 
 Hola, en este repositorio econtrarás mi proyecto final desarrollado para la cursada de React JS de Coderhouse, el cual se fue desarrollando mientras se cursaba y se cumplian con todos los desafios impuestos, ademas este trata de un E-commerce y fue creado utilizando el principio mobile first, por lo cual es totalmente responsive.
 
-este proyecto fue desarrollado con el apoyo del framework material-ui para react, asi como tambien otros componentes externos que complementan a material ui
+este proyecto fue desarrollado con el apoyo del framework material-ui para react para dar algunos estilos, asi como tambien otros componentes externos que complementan a material ui, además se utilizaron estilos propios en su mayorría.
 
 **##En la rama master van a encontrar los archivos principales con los que está construido el sitio:**
 
