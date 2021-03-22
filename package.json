@@ -2,7 +2,7 @@
   "name": "proyecto-david-angel",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://davidangeldg.github.io/Proyecto-Reactjs/",
+  "homepage": "https://davidangeldg.github.io/",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
