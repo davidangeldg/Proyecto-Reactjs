@@ -10,7 +10,9 @@ const useStyles = makeStyles({
         justifyContent: "center",
         alignItems:"center",
         flexFlow: "row wrap",
-        padding: "0 2rem"
+        padding: "0 2rem",
+        margin: "auto",
+        maxWidth: 1100,
     },
 })
 

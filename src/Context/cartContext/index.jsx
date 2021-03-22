@@ -4,19 +4,13 @@ import firebase from 'firebase/app';
 import '@firebase/firestore';
 //MUI
 
-
 export const cartContext = createContext([]);
 
 export const CartProvider = ({children}) => {
 
     const cartLocalStorage = JSON.parse(localStorage.getItem('cart'))
     const [ productCart, setProductCart ] = useState(cartLocalStorage ? cartLocalStorage : []);
-    // desafio firebase
-    const [productos, setProductos] = useState([]);
-    // console.log(productos)   
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(productCart))
-    }, [productCart])
+    const [productos, setProductos] = useState([]);   
     // tomar datos formulario
     const [name, setName] = useState('');
     const [cellphone, setCellphone] = useState('');
@@ -25,7 +19,11 @@ export const CartProvider = ({children}) => {
     const [direccion, setDireccion] = useState('');
     const [idCompra, setIdCompra] = useState('');
     const [open, setOpen] = useState(false);
-    // console.log(idCompra)
+    const [openAlert, setOpenAlert] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(productCart))
+    }, [productCart])
 
     const finalizarCompra = () => {
         let newOrder = { 
@@ -38,11 +36,11 @@ export const CartProvider = ({children}) => {
         if (name & cellphone || direccion !== '' & email === validarEmail) {
             OrdenesCollection.add(newOrder).then((value) => {
                 setIdCompra(value.id);
-                setOpen(true)
-                console.log(value.id)
+                setOpen(true);
+                setProductCart([]);
             })
         }else if(validarEmail !== email || validarEmail === ''){
-            alert(`las direcciones de email no son iguales`);
+            setOpenAlert(true)
         }
     }
     const totalPrice = () => productCart.reduce((acc, p) => acc + (p.quantity * p.item.price), 0);
@@ -91,7 +89,7 @@ export const CartProvider = ({children}) => {
         productCart, addCart, sumarCantCart, restCantCart, removeCart, totalPrice, totalCant, 
         productos, setProductos, 
         name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion, validarEmail, setValidarEmail,
-        finalizarCompra, open, setOpen, idCompra
+        finalizarCompra, open, setOpen, idCompra, openAlert, setOpenAlert
         }}>
         {children}
     </cartContext.Provider>

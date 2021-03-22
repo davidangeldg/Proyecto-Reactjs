@@ -1,5 +1,5 @@
 .contenedorGrande {
-    background: rgba(0, 0, 0, 0.1);
+    // background: rgba(0, 0, 0, 0.1);
     padding: 3rem;
     h1 {
         text-align: center;
@@ -110,6 +110,39 @@
                     border: 1px solid rgba(211, 13, 13, 0.521);
                     color: rgba(211, 13, 13, 0.521);
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: 720px) {
+    .contenedorGrande{
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .contenedorGrande{
+        .cont {
+            img {
+                width: 92%;
+                margin: 0 1.5rem;
+            }
+            .contDetail{
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1315px) {
+    .contenedorGrande{
+        .cont {
+            justify-content: space-around;
+            img {
+                width: 50%;
+                margin: 0 0.2rem;
             }
         }
     }

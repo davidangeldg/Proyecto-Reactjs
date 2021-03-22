@@ -1,14 +1,16 @@
 // contenedor para productos
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 // locales
 // import itemsPromise from "../mocks/productos";
 import ItemList from '../components/ItemList';
 import { useParams } from 'react-router-dom';
 import { cartContext } from '../Context/cartContext';
 import { getFirestore } from '../firebase';
+import { Carrusel } from '../components/carousel';
 
 const useStyles = makeStyles({
     contenedor: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
 const ItemListContainer = () => {
     const classes = useStyles();
     const {productos, setProductos } = useContext(cartContext);
-    console.log(productos)
+    // console.log(productos)
     
     const{ categoria } = useParams(); 
 
@@ -56,10 +58,11 @@ const ItemListContainer = () => {
         })
     }, [categoria]); 
 
-    console.log(productos)
+    // console.log(productos)
  
     return (
         <>            
+            {categoria === undefined ? <Carrusel/> : null}
             {productos.length < 1 ? <div className={classes.contenedor}><CircularProgress color="secondary" /></div> : 
             <ItemList productos={productos}/>}
         </>

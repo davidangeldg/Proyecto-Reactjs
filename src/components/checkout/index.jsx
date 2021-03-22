@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 //mui
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+
 //propios
 import styles from './check.module.scss'
 import { cartContext } from '../../Context/cartContext';
@@ -9,13 +12,14 @@ import CheckCart from '../checkcart';
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import PopUp from '../PopUp';
+import BaseData from '../products';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: '100%',
-    },
+    // root: {
+    //     display: 'flex',
+    //     flexWrap: 'wrap',
+    //     // width: '50%',
+    // },
     textField: {
         // marginLeft: theme.spacing(1),
         // marginRight: theme.spacing(1),
@@ -30,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
 const Checkout = () => {
     const classes = useStyles();
     const {
-        productCart, totalPrice, totalCant, finalizarCompra,
-        name, setName, cellphone, setCellphone, email, setEmail, direccion, setDireccion, validarEmail, setValidarEmail
+        productCart, totalPrice, totalCant, finalizarCompra, setName, cellphone, setCellphone, 
+        email, setEmail, direccion, setDireccion, validarEmail, setValidarEmail, openAlert, setOpenAlert
     } = useContext(cartContext);
 
     const handleChangeName = (event) => {
@@ -49,11 +53,14 @@ const Checkout = () => {
     const handleChangeDir = (event) => {
         setDireccion(event.target.value);
     };
+    const handleAlert = (event) => {
+        setOpenAlert(false)
+    }
     
     return (
         <div className={styles.backg}>
             <div className={styles.checkContainer}>
-                <form className={classes.root} noValidate autoComplete="off">
+                <form className={styles.root} noValidate autoComplete="off">
                     <div className={styles.inputs}>
                         <h3>datos de contacto</h3>
                         <TextField id="name" label="Nombre y Apellido" 
@@ -65,8 +72,6 @@ const Checkout = () => {
                         <TextField id="standard-required" label="Dirección" 
                         placeholder="cll 1 # 100-50" value={direccion} color="secondary"
                         onChange={handleChangeDir} className={classes.textField} />
-                    </div>
-                    <div className={styles.dir}>
                         <TextField id="e-mail" label="E-mail" 
                         placeholder="usuario@correo.com" value={email} className={classes.large} 
                         color="secondary" onChange={handleChangeEmail} autoComplete="off" />
@@ -74,6 +79,8 @@ const Checkout = () => {
                         placeholder="usuario@correo.com" value={validarEmail} className={classes.large} 
                         color="secondary" onChange={handleChangeValidar} autoComplete="off" />
                     </div>
+                    {/* <div className={styles.dir}>
+                    </div> */}
                 </form>
                 <div className={styles.carrito}>
                     <h3>Productos en tu carrito</h3>
@@ -91,6 +98,11 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>
+            <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleAlert} className={styles.snack}>
+                <Alert onClose={handleAlert} severity="error">
+                No has completado todos los campos
+                </Alert>
+            </Snackbar>
             <PopUp/>
         </div>
     )

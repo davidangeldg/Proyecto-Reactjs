@@ -10,7 +10,7 @@ import { cartContext } from '../../Context/cartContext';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#fff",
+      main: "#fff !important",
     },
     secondary: {
       main: "rgb(88, 88, 88)"

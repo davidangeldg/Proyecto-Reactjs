@@ -6,14 +6,15 @@ a{
     text-decoration: none;
 }
 .card {
-    border-radius: 1rem;
+    background-color: #fff;
+    border-radius: .5rem;
     width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: .8rem;
-    box-shadow: 0 3px 7px 0 #58585871 ;
+    box-shadow: 0 3px 5px 0 #81818171 ;
     // background-color: #f50057;
     color: rgb(99, 99, 99);
     box-sizing: border-box;

@@ -1,48 +1,131 @@
-.logo{
-    text-decoration: none;
-    color: #fff;
-}
-
-nav {
+.toolbar{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    /* position: absolute; */
-    /* left: auto; */
-    width: 80%;
-    .links{
-        float: right;
-        padding: 0;
-        margin: 0;
-        // width: 60%;
+    justify-content: space-between;
+    .tittle{
+        position: absolute;
+        flex-grow: 1;
         display: flex;
-        justify-content: space-around;
-        align-items: center;
-        font-weight: 600;
-        li{
-            list-style: none;
-        }
-        li:hover{
-            border-bottom: 2px solid #fff;
-            transition-duration: 0.3s;
-        }
-        a {
-            display: block;
-            padding: 1em;
-            font-size: 1rem;
+        .logo{
             text-decoration: none;
             color: #fff;
         }
-        a:hover {
-            transform: scale(1.1);
-            transition-duration: 0.5s;
-            font-weight: 700;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        /* position: absolute; */
+        /* left: auto; */
+        width: 80%;
+        #navToggle{
+            position: absolute;
+            top: -100px;
         }
-
+        .links{
+            float: right;
+            padding: 0;
+            margin: 0;
+            // width: 60%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-weight: 600;
+            .normal{
+                color: #fff;
+                padding: .5rem 1em;
+                &:hover{
+                    border-bottom: 1px solid #fff;
+                    transition-duration: 0.5s;
+                }
+            }
+            .active{
+                border-bottom: 1px solid lightpink;
+                color: lightpink;
+                transition-duration: 0.5s;
+            }
+            li{
+                list-style: none;
+            }
+            // li:hover{
+            //     border-bottom: 1px solid #fff;
+            //     transition-duration: 0.3s;
+            // }
+            a:hover {
+                transform: scale(1.1);
+                transition-duration: 0.5s;
+                font-weight: 700;
+            }
+        }
+        .iconBurguer{
+            display: none;
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            .line{
+                width: 30px;
+                height: 5px;
+                background-color: #fff;
+                margin: 5px;
+                border-radius: 3px;
+                transition: all .3s ease-in-out;
+            }
+        }
+    }
+    
+    a {
+        text-decoration: none;
+        color: #fff;
     }
 }
 
-a {
-    text-decoration: none;
-    color: #fff;
+@media (max-width: 720px) {
+    .toolbar{
+        justify-content: space-around;
+        .tittle{
+            justify-content: center;
+        }
+        nav{
+           .links{
+                float: none;
+                position: fixed;
+                z-index: 9;
+                left: 0;
+                right: 0;
+                top: 54px;
+                bottom: 100%;
+                width: auto;
+                height: auto;
+                flex-direction: column; 
+                justify-content: space-evenly;           
+                background-color: rgba(0,0,0,.8);
+                overflow: hidden;
+                transition: all .5s ease-in-out;
+                li{
+                    width: 100%;
+                    text-align: center;
+                }
+                a{
+                    font-size: 20px;
+                }
+           }
+           :checked ~ .links {
+            bottom: 0;
+            }
+            .iconBurguer {
+                display: block;
+            }
+            :checked ~ .icon-burguer .line:nth-child(1) {
+                transform: translateY(10px) rotate(225deg);
+            }
+            :checked ~ .icon-burguer .line:nth-child(3) {
+                transform: translateY(-10px) rotate(-225deg);
+            }
+            :checked ~ .icon-burguer .line:nth-child(2) {
+                opacity: 0;
+            }
+        }
+    }
 }
