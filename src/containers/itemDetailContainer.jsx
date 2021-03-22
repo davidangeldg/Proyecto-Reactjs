@@ -1,12 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import ItemDetail from '../components/ItemDetail';
 import NotFound from '../components/NotFound404';
 import { getFirestore } from '../firebase';
+import { makeStyles } from '@material-ui/core/styles';
 // import itemsPromise from "../mocks/productos";
 
-const ItemDetailContainer = () => {
+const useStyles = makeStyles({
+    link: {
+        display:"flex",
+        justifyContent: "center",
+        alignItems:"center",
+        textAlign: "center",
+        margin: "auto",
+        marginTop: "-2%",
+        padding: "0 0 1rem 0"
+    },
+})
 
+const ItemDetailContainer = () => {
+    const classes = useStyles();
     const [detallePro, setDetallePro] = useState([]);
     
     const {id} = useParams();
@@ -38,6 +52,7 @@ const ItemDetailContainer = () => {
         <section>
             {detallePro === undefined ? <NotFound/> :
             <ItemDetail detallePro={detallePro}/>  }
+            <Link to={'/'} className={classes.link}>vuelve a ver todos nuestros productos</Link>
         </section>
     )
 }
